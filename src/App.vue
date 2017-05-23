@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="tab">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
@@ -18,29 +18,46 @@
 
 <script>
   import header from '@/components/header/header'
+
+  const ERR_OK = 0
+
   export default {
-      components: {
-          'v-header': header
+    components: {
+      'v-header': header
+    },
+    data () {
+      return {
+        seller: {}
       }
+    },
+    created () {
+      this.$http.get('api/seller').then(res => {
+        res = res.body
+        if (res.errno === ERR_OK) {
+          this.seller = res.data
+        }
+      })
+    }
   }
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+  @import "common/sass/app";
   .tab {
     display: flex;
     height: 40px;
     line-height: 40px;
-    border-bottom: 1px solid rgba(7,17,27,.1);
+    border-bottom: 1px solid rgba(7, 17, 27, .1);
     &-item {
       flex: 1;
       text-align: center;
       font-size: 14px;
       a {
         display: block;
-        color: rgb(77,85,93);
+        color: rgb(77, 85, 93);
 
         &.router-link-active {
-          color: rgb(240,20,20);
+          color: rgb(240, 20, 20);
         }
       }
     }
