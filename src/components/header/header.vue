@@ -31,46 +31,49 @@
     </div>
     <transition name="fade">
       <div v-show="detailShow" class="detail-wrap">
-      <div class="content">
-        <div class="main">
-          <h1 class="title">{{seller.name}}</h1>
-          <div class="star-wrap"></div>
-          <section class="section">
-            <div class="section-title">
-              <span class="line"></span>
-              <span class="text">优惠信息</span>
-              <span class="line"></span>
+        <div class="content">
+          <div class="main">
+            <h1 class="title">{{seller.name}}</h1>
+            <div class="star-wrap">
+              <star :size="48" :score="seller.score"></star>
             </div>
-            <div class="section-content">
-              <ul class="supports">
-                <li v-for="item in seller.supports">
-                  <i class="icon" :class="classMap[item.type]"></i>
-                  <span class="text">{{item.description}}</span>
-                </li>
-              </ul>
-            </div>
-          </section>
-          <section class="section">
-            <div class="section-title">
-              <span class="line"></span>
-              <span class="text">商家公告</span>
-              <span class="line"></span>
-            </div>
-            <div class="section-content">
-              <p class="bulletin">{{seller.bulletin}}</p>
-            </div>
-          </section>
+            <section class="section">
+              <div class="section-title">
+                <span class="line"></span>
+                <span class="text">优惠信息</span>
+                <span class="line"></span>
+              </div>
+              <div class="section-content">
+                <ul class="supports">
+                  <li v-for="item in seller.supports">
+                    <i class="icon" :class="classMap[item.type]"></i>
+                    <span class="text">{{item.description}}</span>
+                  </li>
+                </ul>
+              </div>
+            </section>
+            <section class="section">
+              <div class="section-title">
+                <span class="line"></span>
+                <span class="text">商家公告</span>
+                <span class="line"></span>
+              </div>
+              <div class="section-content">
+                <p class="bulletin">{{seller.bulletin}}</p>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="close" @click="detailShow = false">
+          <i class="icon-close">x</i>
         </div>
       </div>
-      <div class="close" @click="detailShow = false">
-        <i class="icon-close">x</i>
-      </div>
-    </div>
     </transition>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import star from '@/components/star/star'
   export default {
     props: {
       seller: {
@@ -86,7 +89,9 @@
         detailShow: false
       }
     },
-    mounted: {}
+    components: {
+      star
+    }
   }
 </script>
 
@@ -215,7 +220,12 @@
       transition: all .5s;
       -webkit-backdrop-filter: blur(10px);
       background-color: rgba(7, 17, 27, .8);
-      -webkit-overflow-scrolling : touch;
+      -webkit-overflow-scrolling: touch;
+      .star-wrap {
+        margin-top: 24px;
+        margin-bottom: 28px;
+        text-align: center;
+      }
       .supports {
         li {
           margin-bottom: 12px;
@@ -277,7 +287,7 @@
             flex: 1;
             margin-top: 6px;
             height: 1px;
-            background-color: rgba(255,255,255,.2);
+            background-color: rgba(255, 255, 255, .2);
           }
         }
         &-content {

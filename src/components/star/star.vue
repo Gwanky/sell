@@ -1,11 +1,14 @@
 <template>
-  <div class="star">
-    <span v-for="" class="star-item" :class="itemSize"></span>
+  <div class="star" :class="itemType">
+    <span v-for="itemClass in itemClasses" :class="itemClass" class="star-item"></span>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  const LENGTH = 5;
+  const LENGTH = 5
+  const CLS_ON = 'on'
+  const CLS_HALF = 'half'
+  const CLS_OFF = 'off'
 
   export default {
     props: {
@@ -17,20 +20,91 @@
       }
     },
     data () {
+      return {}
     },
     computed: {
-      itemSize () {
-          return 'star' + this.size
+      itemType () {
+        return 'star-' + this.size
+      },
+      itemClasses () {
+        let result = []
+        let score = Math.floor(this.score * 2) / 2
+        let hasDecimal = score % 1 !== 0
+        let integer = Math.floor(score)
+        for (let i = 0; i < integer; i++) {
+          result.push(CLS_ON)
+        }
+        if (hasDecimal) {
+          result.push(CLS_HALF)
+        }
+        while (result.length < LENGTH) {
+          result.push(CLS_OFF)
+        }
+        return result
       }
     }
   }
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+  @import "../../common/sass/mixin";
+
   .star {
     font-size: 0;
     &-item {
       display: inline-block;
+      background-repeat: no-repeat;
+    }
+    &-24 {
+      .star-item {
+        width: 10px;
+        height: 10px;
+        margin-right: 3px;
+        background-size: 10px 10px;
+        &.on {
+          @include bg-img('star24_on');
+        }
+        &.half {
+          @include bg-img('star24_half');
+        }
+        &.off {
+          @include bg-img('star24_off');
+        }
+      }
+    }
+    &-36 {
+      .star-item {
+        width: 15px;
+        height: 15px;
+        margin-right: 6px;
+        background-size: 15px 15px;
+        &.on {
+          @include bg-img('star36_on');
+        }
+        &.half {
+          @include bg-img('star36_half');
+        }
+        &.off {
+          @include bg-img('star36_off');
+        }
+      }
+    }
+    &-48 {
+      .star-item {
+        width: 30px;
+        height: 30px;
+        margin-right: 12px;
+        background-size: 30px 30px;
+        &.on {
+          @include bg-img('star48_on');
+        }
+        &.half {
+          @include bg-img('star48_half');
+        }
+        &.off {
+          @include bg-img('star48_off');
+        }
+      }
     }
   }
 </style>
