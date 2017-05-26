@@ -21,10 +21,11 @@
     <div class="bulletin-wrap" @click="detailShow = true">
       <i class="icon"></i>
       <span class="text">{{seller.bulletin}}</span>
+      <i class="fa fa-angle-right"></i>
     </div>
     <div class="supports-count" @click="detailShow = true">
       <span>{{seller.supports.length}}个</span>
-      <i class="icon-arrow_lift"></i>
+      <i class="fa fa-angle-right"></i>
     </div>
     <div class="img">
       <img :src="seller.avatar" alt="">
@@ -65,7 +66,7 @@
           </div>
         </div>
         <div class="close" @click="detailShow = false">
-          <i class="icon-close">x</i>
+          <i class="fa fa-times"></i>
         </div>
       </div>
     </transition>
@@ -181,6 +182,12 @@
         vertical-align: middle;
         @include bg-img('bulletin');
         background-size: 22px 12px;
+      }
+      .fa {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
       }
     }
     .supports-count {
@@ -304,7 +311,7 @@
         transition: all .3s ease;
       }
       &-leave-active {
-        transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
       }
       &-enter,
       &-leave-active {
