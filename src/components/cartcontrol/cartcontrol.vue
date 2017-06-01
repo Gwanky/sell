@@ -1,12 +1,12 @@
 <template>
   <div class="cartcontrol">
     <transition name="move">
-      <span v-show="food.count > 0" class="cart-decrease" @click="decreaseCart">
+      <span v-show="food.count > 0" class="cart-decrease" @click.stop.prevent="decreaseCart">
         <i class="inner fa fa-minus-circle"></i>
       </span>
     </transition>
     <span v-show="food.count > 0" class="text">{{food.count}}</span>
-    <span class="cart-add" @click="addCart">
+    <span class="cart-add" @click.stop.prevent="addCart">
       <i class="fa fa-plus-circle"></i>
     </span>
   </div>
@@ -69,7 +69,7 @@
     .move-enter-active,
     .move-leave-active {
       transform: translate3D(0,0,0);
-      transition: all .5s linear;
+      transition: all .8s linear;
       .inner {
         transition: all 1s ease;
       }
