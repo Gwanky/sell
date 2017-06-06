@@ -37,6 +37,23 @@
             :ratings="food.ratings"
             :select-type="selectType"
             :only-content="onlyContent" :desc="desc"></ratingselect>
+          <div class="rating-wrap">
+            <ul>
+              <li v-for="rating in food.ratings" class="rating-item">
+                <div class="from">
+                  <div class="time">{{rating.rateTime}}</div>
+                  <div class="user">
+                    <span class="user-name">{{rating.username}}</span>
+                    <img class="user-avatar" :src="rating.avatar" width="12" height="12" alt="">
+                  </div>
+                </div>
+                <div class="content">
+                  <i class="fa fa-thumbs-up" :class="{active: rating.rateType === 1}"></i>
+                  <p class="text">{{rating.text}}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -222,6 +239,30 @@
         font-size: 14px;
         font-weight: 400;
         color: rgb(7, 17, 27);
+      }
+      &-wrap {
+        border-top: 1px solid rgba(7,17,27,.1);
+      }
+      &-item {
+        position: relative;
+        padding: 16px 18px;
+        + .rating-item {
+          &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 18px;
+            right: 18px;
+            height: 1px;
+            background-color: rgba(7,17,27,.1);
+          }
+        }
+        .from {
+          display: flex;
+          font-size: 10px;
+          line-height: 12px;
+          color: rgb(147,153,159);
+        }
       }
     }
   }

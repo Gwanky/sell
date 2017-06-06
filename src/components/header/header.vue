@@ -104,6 +104,7 @@
     padding-bottom: 28px;
     background-color: rgba(7, 17, 27, .5);
     color: #fff;
+    overflow: hidden;
     .content-wrap {
       display: flex;
       padding: 24px 24px 18px;

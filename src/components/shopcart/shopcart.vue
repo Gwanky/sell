@@ -299,7 +299,7 @@
       z-index: -1;
       background-color: rgba(7, 17, 27, .6);
       -webkit-backdrop-filter: blur(10px);
-      transition: opacity .5s;
+      transition: all .5s;
     }
     .fade {
       &-enter-active,
