@@ -36,10 +36,11 @@
             @toggle="toggleContent"
             :ratings="food.ratings"
             :select-type="selectType"
-            :only-content="onlyContent" :desc="desc"></ratingselect>
+            :only-content="onlyContent"
+            :desc="desc"></ratingselect>
           <div class="rating-wrap">
-            <ul>
-              <li v-for="rating in food.ratings" class="rating-item">
+            <ul v-show="food.ratings && food.ratings.length">
+              <li v-show="needShow(rating.rateType, rating.text)" v-for="rating in food.ratings" class="rating-item">
                 <div class="from">
                   <div class="time">{{rating.rateTime}}</div>
                   <div class="user">
@@ -48,11 +49,12 @@
                   </div>
                 </div>
                 <div class="content">
-                  <i class="fa fa-thumbs-up" :class="{active: rating.rateType === 1}"></i>
+                  <i class="fa" :class="{'fa-thumbs-down': rating.rateType === 1, 'fa-thumbs-up': rating.rateType === 0}"></i>
                   <p class="text">{{rating.text}}</p>
                 </div>
               </li>
             </ul>
+            <div v-show="!food.ratings || !food.ratings.length" class="no-ratings">暂无评价</div>
           </div>
         </div>
       </div>
@@ -122,6 +124,16 @@
         this.$nextTick(() => {
           this.scroll.refresh()
         })
+      },
+      needShow (type, text) {
+        if (this.onlyContent && !text) {
+          return false
+        }
+        if (this.selectType === ALL) {
+          return true
+        } else {
+          return type === this.selectType
+        }
       }
     },
     components: {
@@ -241,7 +253,7 @@
         color: rgb(7, 17, 27);
       }
       &-wrap {
-        border-top: 1px solid rgba(7,17,27,.1);
+        border-top: 1px solid rgba(7, 17, 27, .1);
       }
       &-item {
         position: relative;
@@ -254,16 +266,52 @@
             left: 18px;
             right: 18px;
             height: 1px;
-            background-color: rgba(7,17,27,.1);
+            background-color: rgba(7, 17, 27, .1);
           }
         }
         .from {
           display: flex;
           font-size: 10px;
           line-height: 12px;
-          color: rgb(147,153,159);
+          color: rgb(147, 153, 159);
+        }
+        .user {
+          flex: 1;
+          text-align: right;
+          font-size: 0;
+          &-name,
+          &avatar {
+            display: inline-block;
+            vertical-align: top;
+          }
+          &-name {
+            margin-right: 6px;
+            font-size: 12px;
+          }
+          &-avatar {
+            border-radius: 50%;
+          }
+        }
+        .content {
+          display: flex;
+          .fa {
+            margin-right: 4px;
+            color: rgb(147, 153, 159);
+            &.fa-thumbs-up {
+              color: rgb(0, 160, 220);
+            }
+          }
+          .text {
+            color: rgb(7, 17, 27);
+            line-height: 16px;
+          }
         }
       }
+    }
+    .no-ratings {
+      padding: 18px;
+      font-size: 12px;
+      color: rgb(7, 17, 27);
     }
   }
 

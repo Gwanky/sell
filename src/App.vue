@@ -55,7 +55,6 @@
       a {
         display: block;
         color: rgb(77, 85, 93);
-
         &.router-link-active {
           color: rgb(240, 20, 20);
         }

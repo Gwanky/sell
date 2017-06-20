@@ -19,9 +19,6 @@
         type: Number
       }
     },
-    data () {
-      return {}
-    },
     computed: {
       itemType () {
         return 'star-' + this.size
